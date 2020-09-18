@@ -66,9 +66,9 @@ There are six alien ships. The aliens' weakness is that they are too logical and
 
 **The alien ships** should each have the following _ranged_ properties determined randomly:
 
-* hull - between `3` and `6`
-* firepower - between `2` and `4`
-* accuracy - between `.6` and `.8`
+* hull - between `3` and `6`   //DONE
+* firepower - between `2` and `4` //DONE 
+* accuracy - between `.6` and `.8` //DONE
 
 You could be battling six alien ships each with unique values. 
 
