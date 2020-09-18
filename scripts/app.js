@@ -74,10 +74,17 @@ console.log(playerShip[0])
 //FUNCTION that makes the human and alien ship objects attack eachother. It continues until either the human is destroyed, or all aliens are destroyed.
 function battleSequence () {
     for (let i = 0; i < alienSquadron.length; i++) {
+let userChoice = prompt('Continue...?', 'yes');
+if(userChoice.toLowerCase() === 'yes') {
+} else if (userChoice.toLowerCase() === 'no' || userChoice === null || alienSquadron[5].hull <= 0) {
+    alert('You live to fight another day!')
+    break;
+};
         if (playerShip[0].hull <= 0) {
             console.log(`${playerShip[0].name} has been destroyed...Earth's last hope has been defeated!!!`);
             break;
         }
+
         while(alienSquadron[i].hull > 0) {
             console.log(`${playerShip[0].name} has ${playerShip[0].hull} hitpoints remaining, and ${alienSquadron[i].name} has ${alienSquadron[i].hull} hitpoints remaining.`)
             playerShip[0].humanFire(alienSquadron[i]);
@@ -85,7 +92,8 @@ function battleSequence () {
                 alienSquadron[i].alienFire(playerShip[0]);
                 playerShip[0].humanFire(alienSquadron[i]);
             }
-        }       
+        }   
+
         if (alienSquadron[i].hull <= 0) {
             console.log(`${alienSquadron[i].name} has been destroyed! KABOOM!!!`);
         } 
@@ -97,3 +105,4 @@ function battleSequence () {
 }
 battleSequence();
 console.log(playerShip[0])
+
