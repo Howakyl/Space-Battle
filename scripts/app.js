@@ -4,6 +4,11 @@
 // make a battle sequence for player and one ship
 
 
+///////////////////////////////////////////
+//                 SPACE                 //
+//                BATTLE                 //
+///////////////////////////////////////////
+
 //Parent SHIP class
 class Ship {
     constructor (hull, firepower, accuracy) {
@@ -71,12 +76,13 @@ console.log(playerShip[0])
 
 //attacking
 
+
 //FUNCTION that makes the human and alien ship objects attack eachother. It continues until either the human is destroyed, or all aliens are destroyed.
 function battleSequence () {
     for (let i = 0; i < alienSquadron.length; i++) {
 let userChoice = prompt('Continue...?', 'yes');
-if(userChoice.toLowerCase() === 'yes') {
-} else if (userChoice.toLowerCase() === 'no' || userChoice === null || alienSquadron[5].hull <= 0) {
+if(userChoice === 'yes') {
+} else if (userChoice === 'no' || userChoice === null || alienSquadron[5].hull <= 0) {     //Hit yes to start the game! 
     alert('You live to fight another day!')
     break;
 };
