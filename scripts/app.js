@@ -9,6 +9,10 @@
 //                BATTLE                 //
 ///////////////////////////////////////////
 
+const yesButton = document.querySelector('.yesButton');
+const noButton = document.querySelector('.noButton');
+
+
 //Parent SHIP class
 class Ship {
     constructor (hull, firepower, accuracy) {
@@ -19,21 +23,20 @@ class Ship {
 
 }
 
-//player ship class
+//player ship class (I lowered the accuracy of the player ship down to .5 to give the Aliens an actual chance at winning.)
 class UssAssembly extends Ship{
     constructor(name) {
-        super(20,5,.7);
+        super(20,5,.5);
         this.name = name;
     }
 
-//function that compares Ship accuracy value against accuracyNum variable, to decide if a hit will land
+//function that compares Ship accuracy value against Math.random, to decide if a hit will land
     humanFire (target) {
-        let accuracyNum = Math.random().toFixed(1);
-        if (this.accuracy >= accuracyNum) {
-            console.log(`${this.name} fires for ${this.firepower} damage!`);
+        if (this.accuracy >= Math.random().toFixed(1)) {
+            console.log(`%c ${this.name} fires for ${this.firepower} damage! ${target.name} has ${target.hull} hull remaining.` , 'font-size: 20px; color: green;');
             return target.hull -= this.firepower;
-        } else if (this.accuracy < accuracyNum) {
-            console.log(`The ${this.name} missed! ${target.name} readies their shot...`)
+        } else if (this.accuracy < Math.random().toFixed(1)) {
+            console.log(`%c The ${this.name} missed! ${target.name} readies their shot...` , 'font-size: 20px; color: yellow;')
         }
     }
 }
@@ -45,14 +48,13 @@ class AlienShip extends Ship {
         this.name = name;
     }
 
-//function that compares Alien Ship accuracy value against accuracyNum variable, to decide if a hit will land
+//function that compares Alien Ship accuracy value against Math.random, to decide if a hit will land
     alienFire (target) {
-        let accuracyNum = Math.random().toFixed(1);
-        if (this.accuracy >= accuracyNum ) {
-            console.log(`${this.name} fires for ${this.firepower} damage!`);
+        if (this.accuracy >= Math.random().toFixed(1)) {
+            console.log(`%c ${this.name} fires for ${this.firepower} damage!` , 'font-size: 20px; color: red;');
             return target.hull -= this.firepower;
-        } else if (this.accuracy < accuracyNum) {
-            console.log(`The ${this.name} missed! ${target.name} readies their shot...`)
+        } else if (this.accuracy < Math.random().toFixed(1)) {
+            console.log(`%c The ${this.name} missed! ${target.name} readies their shot...` , 'font-size: 20px; color: orange;')
         }
     }
 }
@@ -74,25 +76,23 @@ let alienSquadron = [
 
 console.log(playerShip[0])
 
-//attacking
-
-
 //FUNCTION that makes the human and alien ship objects attack eachother. It continues until either the human is destroyed, or all aliens are destroyed.
+//click OK or hit return to continue. Inputting 'no' or cancelling the prompt will end the game.
 function battleSequence () {
     for (let i = 0; i < alienSquadron.length; i++) {
-let userChoice = prompt('Continue...?', 'yes');
-if(userChoice === 'yes') {
-} else if (userChoice === 'no' || userChoice === null || alienSquadron[5].hull <= 0) {     //Hit yes to start the game! 
-    alert('You live to fight another day!')
-    break;
+        let userChoice = prompt('Continue...?', 'yes');
+        if(userChoice === 'yes') {
+        } else if (userChoice === 'no' || userChoice === null || alienSquadron[5].hull <= 0) {     //Hit yes to start the game! 
+            alert('You live to fight another day!')
+            break;
 };
         if (playerShip[0].hull <= 0) {
-            console.log(`${playerShip[0].name} has been destroyed...Earth's last hope has been defeated!!!`);
+            console.log(`%c ${playerShip[0].name} has been destroyed...Earth's last hope has been defeated!!!`, 'font-size: 40px; color: red;');
             break;
         }
 
         while(alienSquadron[i].hull > 0) {
-            console.log(`${playerShip[0].name} has ${playerShip[0].hull} hitpoints remaining, and ${alienSquadron[i].name} has ${alienSquadron[i].hull} hitpoints remaining.`)
+            console.log(`%c ${playerShip[0].name} has ${playerShip[0].hull} hull remaining, and ${alienSquadron[i].name} has ${alienSquadron[i].hull} hull remaining.` , 'font-style: italic;')
             playerShip[0].humanFire(alienSquadron[i]);
             if(alienSquadron[i].hull > 0) {
                 alienSquadron[i].alienFire(playerShip[0]);
@@ -101,14 +101,13 @@ if(userChoice === 'yes') {
         }   
 
         if (alienSquadron[i].hull <= 0) {
-            console.log(`${alienSquadron[i].name} has been destroyed! KABOOM!!!`);
+            console.log(`%c ${alienSquadron[i].name} has been destroyed! KABOOM!!!` , 'font-size: 25px; color: limegreen;');
         } 
         if (alienSquadron[5].hull <=0) {
-            console.log('All ships have been defeated! Earth is saved!');
+            console.log('%c All ships have been defeated! Earth is saved!' , 'font-size: 40px; color: limegreen;');
             break;
         } 
     }
 }
-battleSequence();
+document.querySelector('.yesButton').onclick = battleSequence();  // I couldn't seem to get the function to start only when the 'yes' button was clicked. Any tips on how to get it to work would  be appreciated!!
 console.log(playerShip[0])
-
